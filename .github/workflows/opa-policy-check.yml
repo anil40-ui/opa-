@@ -1,0 +1,21 @@
+
+
+on:
+  pull_request:
+    paths:
+      - '**/*.yaml'   # You can adjust the paths to match your project structure
+
+jobs:
+  opa-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up OPA
+        uses: open-policy-agent/opa@v0.39.0 # Use the appropriate version of OPA
+
+      - name: Run OPA policy check
+        run: |
+          opa eval --input path/to/input/file --data path/to/policy/file "data.example.allow == true"
